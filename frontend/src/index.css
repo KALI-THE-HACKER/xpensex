@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+body, html{
+    background-color: #0a0618;
+}
+
+* {
+    font-family: "Nunito Sans", sans-serif;
+}
+
+h1{
+    font-family: "Nata Sans", sans-serif;
+}
+
+/* Remove number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
