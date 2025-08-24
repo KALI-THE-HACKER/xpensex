@@ -3,3 +3,4 @@ uvicorn
 firebase
 firebase_admin
 mysql-connector-python
+python-dotenv

@@ -1,6 +1,8 @@
 # Environment files
 .env
 
+backend/firebase-config.json
+
 # Logs
 logs/
 logs/nginx/
