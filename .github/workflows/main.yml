@@ -1,0 +1,66 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout node
+      uses: actions/checkout@v4
+
+    - name: Setup docker buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker images
+      run: |
+        #Build and push frontend part
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/xpensex-frontend:latest ./frontend
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/xpensex-frontend:latest
+
+        #Build and push backend
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/xpensex-backend:latest ./backend
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/xpensex-backend:latest
+
+    - name: Deploy to Azure VM
+      if: github.ref == 'refs/heads/main'
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.AZURE_VM_HOST }}
+        username: ${{ secrets.AZURE_VM_USERNAME }}
+        key: ${{ secrets.AZURE_VM_SSH_KEY }}
+        script: |
+          # Navigate to app directory
+          cd /home/${{ secrets.AZURE_VM_USERNAME }}/xpensex
+
+          mkdir -p logs nginx
+          curl -o nginx/nginx.conf https://raw.githubusercontent.com/${{ github.repository }}/main/nginx/nginx.conf
+          curl -o docker-compose.yml https://raw.githubusercontent.com/${{ github.repository }}/main/docker-compose.prod.yml
+
+          cat > .env << EOF
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}
+          FIREBASE_KEY_BASE64=${{ secrets.FIREBASE_KEY_BASE64 }}
+          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+          EOF
+
+          docker-compose pull
+          
+          docker-compose down
+          
+          docker-compose up -d
+          
+          docker image prune -f
