@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: ./frontend
+    build: ./frontend
     container_name: xpensex-frontend
     expose: 
       - "3000"
@@ -12,7 +12,7 @@ services:
       - xpensex-net
     
   backend:
-    image: ./backend
+    build: ./backend
     container_name: xpensex-backend
     expose:
       - "8000"

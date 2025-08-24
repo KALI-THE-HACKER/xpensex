@@ -76,7 +76,12 @@ export default function Transactions({ data, expenseCategoriesList }){
             <h2 className="text-white text-xl font-semibold mb-1 ">Recent Transactions</h2>
             <div className="divide-y divide-[#28233C] h-[400px] overflow-y-auto">
                 {recentTransactions.length === 0 ? (
-                    <div className="text-slate-400 text-center py-8">No recent transactions.</div>
+                     <div className="text-center py-8 flex-1 flex items-center justify-center h-full">
+                    <div>
+                        <p className="text-slate-400 mb-2">No transactions</p>
+                        <p className="text-slate-500 text-sm">Create your first transaction to start tracking</p>
+                    </div>
+                </div>
                 ) : (
                     recentTransactions.slice().map((item, index) => (
                         <div
