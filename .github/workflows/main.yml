@@ -55,6 +55,7 @@ jobs:
           DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}
           FIREBASE_KEY_BASE64=${{ secrets.FIREBASE_KEY_BASE64 }}
           DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+          AZURE_VM_USERNAME=${{ secrets.AZURE_VM_USERNAME }}
           EOF
 
           docker-compose pull
