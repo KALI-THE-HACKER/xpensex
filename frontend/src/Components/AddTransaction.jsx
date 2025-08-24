@@ -75,10 +75,20 @@ export default function AddTransaction({ expenseCategories, incomeCategories, sa
         setTransactionData(prev => ({...prev, category: ''}));
         
         if(transactionData.type === 'Expense'){
+            setError('');
+            setAddCategory(false);
             setSelectedCategories(expenseCategories);
         } else if(transactionData.type === 'Income'){
+            setError('');
+            setAddCategory(false);
             setSelectedCategories(incomeCategories);
         } else if(transactionData.type === 'Savings'){
+            if(savingsCategories.length === 0) {
+                setError("Create a saving goal first!");
+                return;
+            }
+            setError('');
+            setAddCategory(false);
             setSelectedCategories(savingsCategories);
         } else {
             setSelectedCategories([]);
