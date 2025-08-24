@@ -26,3 +26,5 @@ frontend/dist/
 .vscode/
 .idea/
 frontend/node_modules/
+temp_vars.sh
+frontend/src/firebase.js

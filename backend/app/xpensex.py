@@ -5,6 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import firebase_admin
 from firebase_admin import auth, credentials
+import base64
 
 import mysql.connector as connector
 from mysql.connector.errors import IntegrityError, DatabaseError
@@ -35,23 +36,17 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# Initialize Firebase Admin SDK
-# cred_dict = json.loads(os.getenv("FIREBASE_CREDENTIALS_JSON")) #Env var in Azure Key Vault
-# firebase_config = {
-#     "type": os.getenv("FIREBASE_TYPE"),
-#     "project_id": os.getenv("FIREBASE_PROJECT_ID"),
-#     "private_key_id": os.getenv("FIREBASE_PRIVATE_KEY_ID"),
-#     "private_key": os.getenv("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
-#     "client_email": os.getenv("FIREBASE_CLIENT_EMAIL"),
-#     "client_id": os.getenv("FIREBASE_CLIENT_ID"),
-#     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-#     "token_uri": "https://oauth2.googleapis.com/token",
-#     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-#     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40xpensex-180dc.iam.gserviceaccount.com",
-#     "universe_domain": "googleapis.com"
-# }
+# 1. Read the base64-encoded Firebase key from env
+encoded_key = os.getenv("FIREBASE_KEY_BASE64")
+if not encoded_key:
+    raise ValueError("FIREBASE_KEY_BASE64 not set!")
 
-cred = credentials.Certificate(os.getenv("FIREBASE_KEY"))
+# 2. Decode base64 → JSON string → Python dict
+decoded_json = base64.b64decode(encoded_key).decode("utf-8")
+firebase_dict = json.loads(decoded_json)
+
+# 3. Initialize Firebase
+cred = credentials.Certificate(firebase_dict)
 firebase_admin.initialize_app(cred)
 
 app = FastAPI()
@@ -61,10 +56,7 @@ security = HTTPBearer()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://xpensex.luckylinux.xyz", 
-        "https://xpensex.luckylinux.xyz"
-    ],  # frontend URLs
+    allow_origins=["https://xpensex.luckylinux.xyz", "https://20.6.106.186"],  # frontend URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

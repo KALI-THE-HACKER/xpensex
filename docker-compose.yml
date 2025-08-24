@@ -24,6 +24,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
+      - FIREBASE_KEY_BASE64=${FIREBASE_KEY_BASE64}
     volumes:
       - ./logs:/app/logs
       - ./firebase-key.json:/app/firebase-key.json

@@ -10,4 +10,4 @@ RUN mkdir -p /app/logs
 
 EXPOSE 8000
 
-CMD ["uvicorn", "xpensex:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "python3 db_tables_config.py && uvicorn xpensex:app --host 0.0.0.0 --port 8000"]
