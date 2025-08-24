@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: ./frontend
+    image: luckylinux777/xpensex-frontend:latest
     container_name: xpensex-frontend
     expose: 
       - "3000"
@@ -12,7 +12,7 @@ services:
       - xpensex-net
     
   backend:
-    image: ./backend
+    image: luckylinux777/xpensex-backend:latest
     container_name: xpensex-backend
     expose:
       - "8000"
