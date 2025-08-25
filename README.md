@@ -15,7 +15,7 @@
 
 *A comprehensive, modern financial management application built with cutting-edge technologies*
 
-[🚀 Live Demo](https://xpensex.luckylinux.xyz) • [📖 Documentation](#installation) • [🐛 Report Bug](https://github.com/KALI-THE-HACKER/xpensex/issues)
+[🚀 Live Demo](https://xpensex.luckylinux.xyz) • [📖 Documentation](./documentation.md) • [🐛 Report Bug](https://github.com/KALI-THE-HACKER/xpensex/issues)
 
 </div>
 
@@ -23,7 +23,23 @@
 
 ## ✨ Overview
 
-XpenseX is a full-featured personal finance management application designed to help users take control of their financial life. Built with modern technologies and containerized for easy deployment, it offers comprehensive expense tracking, budget management, and financial insights through beautiful visualizations.
+XpenseX is a comprehensive personal finance management web application that helps users visualize and manage their finances in one centralized dashboard. Built to address the overwhelming nature of tracking various income sources, expenses, and savings goals, this application provides an intuitive solution for financial management.
+
+### 🎯 Problem Solved
+Managing personal finances can be overwhelming with various income sources, expenses, and savings goals to track. XpenseX provides a simple yet effective solution that helps users visualize and manage their finances in one place with:
+
+- **📊 User-Friendly Dashboard** - Input and categorize income/expenses (rent, groceries, salary, freelance)
+- **📈 Visual Data Display** - Charts and graphs for easy financial understanding  
+- **🎯 Budget Management** - Set budget limits with notifications when approaching/exceeding limits
+- **💰 Savings Goals** - Track progress towards financial objectives (e.g., saving for a laptop)
+
+### 🚀 Enterprise-Grade Implementation
+- **🐳 Full Containerization** - Multi-stage Docker builds with zero local dependencies
+- **🔄 Automated CI/CD** - GitHub Actions pipeline with Docker Hub integration
+- **☁️ Azure Cloud Deployment** - Production-ready infrastructure with monitoring
+- **🛡️ Enterprise Security** - Firebase Auth, Cloudflare SSL, environment-based secrets
+- **� Custom Email Domain** - Integrated Zoho SMTP for professional verification emails
+- **�📊 DevOps Excellence** - Nginx reverse proxy, health monitoring, automated logging
 
 <!-- After Stable release
 ## 📱 Screenshots
@@ -66,9 +82,10 @@ XpenseX is a full-featured personal finance management application designed to h
 -->
 
 ### 🔐 **Security & Authentication**
-- ✅ **Firebase Authentication** - Secure email/password login
+- ✅ **Firebase Authentication** - Secure email/password login with custom domain integration
+- ✅ **Custom Email Domain** - Professional verification emails via Zoho SMTP server
 - ✅ **Email verification** - Required email confirmation for new accounts
-- ✅ **Password reset** - Secure password recovery via email
+- ✅ **Password reset** - Secure password recovery via custom domain email
 - ✅ **JWT token validation** - Server-side authentication verification
 
 ### 🎨 **User Experience**
@@ -99,118 +116,106 @@ XpenseX is a full-featured personal finance management application designed to h
 - **⚡ Uvicorn** - High-performance ASGI server
 
 ### **DevOps & Deployment**
-- **🐳 Docker** - Containerized application
-- **🔄 Docker Compose** - Multi-container orchestration
-- **⚙️ CI/CD Piplelines** - CI/CD Pipelines for easy deployment
-- **🌐 Nginx** - Reverse proxy and static file serving
-- **☁️ Azure** - Cloud deployment platform
+- **🐳 Docker** - Multi-stage containerization with production optimization
+- **🔄 CI/CD Pipeline** - GitHub Actions with automated Docker Hub deployment
+- **⚙️ Container Orchestration** - Docker Compose multi-service management
+- **🌐 Nginx Reverse Proxy** - SSL termination and request routing (/ → frontend, /api → backend)
+- **☁️ Azure Cloud** - Production VM deployment with monitoring & auto-scaling
+- **🔒 Security & SSL** - Cloudflare CDN with automated certificate management
 
-## 📦 Installation
+## � Deployment & CI/CD
 
-### Prerequisites
-- **Node.js** (v18 or higher)
-- **Python** (3.8 or higher)
-- **Docker & Docker Compose** (for containerized deployment)
-- **MySQL** (8.0 or higher)
+### 🔄 Automated Pipeline
+Our GitHub Actions workflow automatically:
+1. **Builds** optimized Docker images on every commit to main
+2. **Pushes** versioned images to Docker Hub registry  
+3. **Deploys** to Azure VM with zero-downtime rolling updates
+4. **Validates** deployment health and enables rollback if needed
 
-### 🚀 Quick Start with Docker (Recommended)
+### ☁️ Azure Production Environment
+- **Azure VM**: Ubuntu 22.04 LTS (Standard B2s - 2 vCPUs, 4GB RAM)
+- **SSL/CDN**: Cloudflare integration with automated certificate management
+- **Monitoring**: Comprehensive logging and health checks across all services
+- **Security**: Firewall rules, DDoS protection, and environment-based secrets
 
+#### 🔐 Required GitHub Secrets
+For the CI/CD pipeline to work, configure these secrets in your GitHub repository:
 ```bash
-# Clone the repository
-git clone https://github.com/KALI-THE-HACKER/xpensex.git
-cd xpensex
-
-# Create environment file
-cp .env .env
-# Edit .env with your configuration
-
-# Start all services
-docker-compose up -d
-
-# Application will be available at http://localhost
+DOCKER_USERNAME=your_dockerhub_username
+DOCKER_PASSWORD=your_dockerhub_password
+AZURE_HOST=your_azure_vm_ip
+AZURE_USERNAME=your_azure_vm_username  
+AZURE_SSH_KEY=your_private_ssh_key
 ```
 
-### 🔧 Manual Installation
+#### 🚀 Deployment Process
+1. **Trigger**: Push to main branch initiates workflow
+2. **Build**: Multi-architecture Docker images with version tagging
+3. **Test**: Automated testing and security scanning
+4. **Deploy**: SSH deployment to Azure VM with health validation
+5. **Verify**: Post-deployment health checks and rollback capability
+
+#### **🏗️ Deployment Architecture**
+```
+GitHub → GitHub Actions → Docker Hub → Azure VM → Production
+   ↓           ↓             ↓          ↓         ↓
+Commit → Build Images → Push Images → Pull & Deploy → Live App
+```
+
+### 🐳 Docker Deployment (Recommended)
+```bash
+# Quick production deployment
+git clone https://github.com/KALI-THE-HACKER/xpensex.git
+cd xpensex
+cp .env.example .env  # Configure your environment
+docker-compose -f docker-compose.prod.yml up -d
+
+# Application available at https://your-domain.com
+```
+
+### 🔧 Manual Development Setup
+
+#### Prerequisites
+- **Node.js** (v18+), **Python** (3.9+), **Docker & Docker Compose**
 
 #### Backend Setup
 ```bash
-# Navigate to backend directory
-cd backend
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Set up environment variables
-cp .env .env
-# Configure your database and Firebase credentials
-
-# Start the FastAPI server
-uvicorn xpensex:app --host 0.0.0.0 --port 8000
+cd backend && pip install -r requirements.txt
+# Configure .env with database and Firebase credentials
+uvicorn app.xpensex:app --host 0.0.0.0 --port 8000
 ```
 
 #### Frontend Setup
 ```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install Node.js dependencies  
-npm install
-
-# Set up environment variables
-cp .env .env
-# Configure your API endpoint
-
-# Start the development server
+cd frontend && npm install
+# Configure .env with API endpoint
 npm run dev
 ```
 
 ## ⚙️ Configuration
 
 ### Environment Variables
-
-#### Backend (.env)
 ```bash
-# Database Configuration
+# Backend (.env)
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=your_username
 DB_PASSWORD=your_password
 DB_NAME=xpensex
-DB_ROOT_PASSWORD=your_root_password
+FIREBASE_KEY_BASE64=<base64-encoded-firebase-credentials>
 
-# Firebase Configuration
-FIREBASE_CREDENTIALS_JSON=<Firebase-service-account-token>
+# Frontend (.env)
+VITE_API_URL=/api
 ```
 
-#### Frontend (.env)
-```bash
-# API Configuration
-VITE_SERVER_URL=http://localhost:8000
-```
+## 🚀 Architecture & DevOps
 
-## 🚀 Deployment
-
-### Docker Deployment
-```bash
-# Production build and deployment
-docker-compose -f docker-compose.yml up -d --build
-
-# View logs
-docker-compose logs -f
-
-# Scale services
-docker-compose up -d --scale backend=2
-```
-
-### Manual Deployment
-```bash
-# Frontend production build
-cd frontend && npm run build
-
-# Backend production setup
-cd backend && pip install gunicorn
-gunicorn app.xpensex:app --workers 4 --worker-class uvicorn.workers.UvicornWorker
-```
+### 🔧 Production Stack
+- **Frontend**: React 19 + Vite 7 + TailwindCSS 4
+- **Backend**: FastAPI + MySQL 8.0 + Firebase Auth (Custom Domain)
+- **Email Service**: Zoho SMTP integration for professional verification emails
+- **Infrastructure**: Docker + Nginx + Azure + Cloudflare
+- **CI/CD**: GitHub Actions + Docker Hub + Automated deployment
 
 ## 🤝 Contributing
 
