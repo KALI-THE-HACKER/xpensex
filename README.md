@@ -4,7 +4,7 @@
 
 ![XpenseX Logo](https://img.shields.io/badge/XpenseX-Personal%20Finance%20Tracker-purple?style=for-the-badge&logo=money-bill&logoColor=white)
 
-![Version](https://img.shields.io/badge/Version-v1.0.0--beta-orange?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-v1.0.0-orange.svg?style=flat-square)
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
 ![React](https://img.shields.io/badge/React-v19-61DAFB.svg?style=flat-square&logo=react&logoColor=white)
