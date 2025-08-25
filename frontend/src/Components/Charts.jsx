@@ -102,11 +102,20 @@ export function MonthChart({ data }) {
 
     return (
         <div className={containerClasses}>
-            <canvas 
-                ref={chartRef} 
-                className="w-full h-full"
-                style={{ width: '100%', height: '100%' }}
-            ></canvas>
+            {(!monthDatasets[0]?.data || monthDatasets[0].data.length === 0) ? (
+                <div className="text-center py-8 flex-1 flex items-center justify-center h-full">
+                    <div>
+                        <p className="text-slate-400 mb-2">No expense data available</p>
+                        <p className="text-slate-500 text-sm">Create your first expense transaction to start tracking</p>
+                    </div>
+                </div>
+            ) : (
+                <canvas 
+                    ref={chartRef} 
+                    className="w-full h-full"
+                    style={{ width: '100%', height: '100%' }}
+                ></canvas>
+            )}
         </div>
     );
 };
@@ -193,11 +202,19 @@ export function FullChart({ data, period }) {
     
     return (
         <div className={containerClasses}>
-            <canvas 
-                ref={chartRef} 
-                className="w-full h-full"
-                style={{ width: '100%', height: '100%' }}
-            ></canvas>
-        </div>
-    );
+            {(!incomeDatasets[0]?.data || incomeDatasets[0].data.length === 0) ? (
+                 <div className="text-center py-8 flex-1 flex items-center justify-center h-full">
+                    <div>
+                        <p className="text-slate-400 mb-2">No income date available</p>
+                        <p className="text-slate-500 text-sm">Add your income to start tracking</p>
+                    </div>
+                </div>
+            ) : (
+                <canvas 
+                    ref={chartRef} 
+                    className="w-full h-full"
+                    style={{ width: '100%', height: '100%' }}
+                ></canvas>
+            )}
+        </div>)
 };

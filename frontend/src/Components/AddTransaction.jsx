@@ -16,11 +16,14 @@ export default function AddTransaction({ expenseCategories, incomeCategories, sa
     const refetchWholeData = useRefetchWholeData();
 
     const handleAddTransaction = async() => {
-        if (!transactionData.amount || !transactionData.type || !transactionData.category || !transactionData.date) {
+        if (!transactionData.amount || !transactionData.type || !transactionData.category || !transactionData.date || transactionData.category.trim()=="") {
             setError("Please fill in all required fields!");
             setSuccess('');
             return;
         }
+
+        //Trimming the data before saving
+        const trimmedTransactionData = { ...transactionData, category: transactionData.category.trim() };
         
         try {
             const response = await fetch(`${serverUrl}/AddTransaction`, {
@@ -29,7 +32,7 @@ export default function AddTransaction({ expenseCategories, incomeCategories, sa
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${await auth.currentUser.getIdToken()}`
                 },
-                body: JSON.stringify(transactionData)
+                body: JSON.stringify(trimmedTransactionData)
             });
 
             if (!response.ok) {
@@ -193,7 +196,7 @@ export default function AddTransaction({ expenseCategories, incomeCategories, sa
                                             className="mt-1 text-sm text-purple-400 hover:text-purple-300 transition-colors px-1 py-0.5 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                                             onClick={() => { setAddCategory(!addCategory); }}
                                         >
-                                            + Add category
+                                            {!addCategory ? "+ Add category" : "Close"}
                                         </button>
                                     </div>
                                 </div>
