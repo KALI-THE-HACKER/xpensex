@@ -1,28 +1,4 @@
 # 💰 XpenseX - Personal Finance Tracker
-- **📧 Custom Email Domain** - Integrated Zoho SMTP for professional verification emails
-- **📊 DevOps Excellence** - Nginx reverse proxy, health monitoring, automated logging
-
-## 📱 Screenshots
-
-### 🖥️ Desktop Dashboard
-<div align="center">
-
-<img src="./repo-utils/dashboard.png" alt="XpenseX Dashboard - Complete Overview" width="800" height="670" style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-
-*Complete desktop dashboard showcasing transaction management, visual analytics, budget goals, and savings tracking*
-
-</div>
-
-### 📱 Mobile Experience
-<div align="center">
-
-<img src="./repo-utils/dashboard-mobile.png" alt="XpenseX Mobile Dashboard - Responsive Design" width="600" style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-
-*Mobile-responsive design showcasing all dashboard features optimized for mobile devices*
-
-</div>
-
----
 
 <div align="center">
 
@@ -62,24 +38,30 @@ Managing personal finances can be overwhelming with various income sources, expe
 - **🔄 Automated CI/CD** - GitHub Actions pipeline with Docker Hub integration
 - **☁️ Azure Cloud Deployment** - Production-ready infrastructure with monitoring
 - **🛡️ Enterprise Security** - Firebase Auth, Cloudflare SSL, environment-based secrets
-- **� Custom Email Domain** - Integrated Zoho SMTP for professional verification emails
-- **�📊 DevOps Excellence** - Nginx reverse proxy, health monitoring, automated logging
+- **📧 Custom Email Domain** - Integrated Zoho SMTP for professional verification emails
+- **📊 DevOps Excellence** - Nginx reverse proxy, health monitoring, automated logging
 
-<!-- After Stable release
 ## 📱 Screenshots
-<div align="center">
-  
-| Dashboard Overview | Transaction Management |
-|:--:|:--:|
-| ![Dashboard](./screenshots/dashboard.png) | ![Transactions](./screenshots/transactions.png) |
 
-| Budget Goals | Savings Tracker |
-|:--:|:--:|
-| ![Budget Goals](./screenshots/budget-goals.png) | ![Savings Goals](./screenshots/savings-goals.png) |
+### 🖥️ Desktop Dashboard
+<div align="center">
+
+<img src="./repo-utils/dashboard.png" alt="XpenseX Dashboard - Complete Overview" width="800" height="670" style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+
+*Complete desktop dashboard showcasing transaction management, visual analytics, budget goals, and savings tracking*
 
 </div>
 
--->
+### 📱 Mobile Experience
+<div align="center">
+
+<img src="./repo-utils/dashboard-mobile.png" alt="XpenseX Mobile Dashboard - Responsive Design" width="600" style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+
+*Mobile-responsive design showcasing all dashboard features optimized for mobile devices*
+
+</div>
+
+---
 
 ## 🚀 Features
 
