@@ -4,11 +4,21 @@
 
 ## 📱 Screenshots
 
+### 🖥️ Desktop Dashboard
 <div align="center">
 
 <img src="./repo-utils/dashboard.png" alt="XpenseX Dashboard - Complete Overview" width="800" height="670" style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
 
-*Complete dashboard showcasing transaction management, visual analytics, budget goals, and savings tracking*
+*Complete desktop dashboard showcasing transaction management, visual analytics, budget goals, and savings tracking*
+
+</div>
+
+### 📱 Mobile Experience
+<div align="center">
+
+<img src="./repo-utils/dashboard-mobile.png" alt="XpenseX Mobile Dashboard - Responsive Design" width="600" style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+
+*Mobile-responsive design showcasing all dashboard features optimized for mobile devices*
 
 </div>
 
