@@ -15,7 +15,7 @@
 
 *A comprehensive, modern financial management application built with cutting-edge technologies*
 
-[🚀 Live Demo](https://xpensex.luckylinux.xyz) • [📖 Documentation](./documentation.md) • [🐛 Report Bug](https://github.com/KALI-THE-HACKER/xpensex/issues)
+[🚀 Live Demo](https://xpensex.luckylinux.xyz) • [📖 Documentation](./DOCUMENTATION.md) • [🐛 Report Bug](https://github.com/KALI-THE-HACKER/xpensex/issues)
 
 </div>
 
