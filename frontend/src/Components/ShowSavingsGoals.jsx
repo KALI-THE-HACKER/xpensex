@@ -88,8 +88,8 @@ export default function ShowSavingsGoals({ data, savingsCategories }) {
       {savingsGoals.length === 0 ? (
           <div className="text-center py-8 flex-1 flex items-center justify-center">
                     <div>
-                        <p className="text-slate-400 mb-2">No budget goals set</p>
-                        <p className="text-slate-500 text-sm">Create your first budget goal to start tracking</p>
+                        <p className="text-slate-400 mb-2">No savings goals set</p>
+                        <p className="text-slate-500 text-sm">Create your first saving goal to start tracking</p>
                     </div>
                 </div>
         ) :

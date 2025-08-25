@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { PiggyBank, DollarSign, Calendar, Plus} from 'lucide-react';
 import ShowSavingsGoals from './ShowSavingsGoals';
 import { auth } from './../firebase';
+import { useRefetchWholeData } from '../context/RefetchContext';
 
 export default function SetSavingsGoals({ data, savingsCategories, onBack }) {
     const serverUrl = import.meta.env.VITE_SERVER_URL;
@@ -14,6 +15,7 @@ export default function SetSavingsGoals({ data, savingsCategories, onBack }) {
     const [success, setSuccess] = useState('');
     const [showSavings, setShowSavings] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const refetchWholeData = useRefetchWholeData();
 
     const handleInputChange = (field, value) => {
         setSavingsData(prev => ({ ...prev, [field]: value }));
@@ -64,6 +66,8 @@ export default function SetSavingsGoals({ data, savingsCategories, onBack }) {
                 targetAmount: '',
                 description: ''
             });
+            
+            await refetchWholeData();
 
             if (onBack) {
                 setTimeout(() => onBack(), 2000);
