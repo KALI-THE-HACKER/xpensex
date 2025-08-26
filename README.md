@@ -25,8 +25,7 @@
 
 XpenseX is a comprehensive personal finance management web application that helps users visualize and manage their finances in one centralized dashboard. Built to address the overwhelming nature of tracking various income sources, expenses, and savings goals, this application provides an intuitive solution for financial management.
 
-### 🎯 Problem Solved
-Managing personal finances can be overwhelming with various income sources, expenses, and savings goals to track. XpenseX provides a simple yet effective solution that helps users visualize and manage their finances in one place with:
+### 🎯 Features
 
 - **📊 User-Friendly Dashboard** - Input and categorize income/expenses (rent, groceries, salary, freelance)
 - **📈 Visual Data Display** - Charts and graphs for easy financial understanding  
@@ -63,47 +62,21 @@ Managing personal finances can be overwhelming with various income sources, expe
 
 ---
 
-## 🚀 Features
+## 🎥 Video Demonstrations
 
-### 💳 **Transaction Management**
-- ✅ **Multi-category tracking** - Expense, Income, and Savings transactions
-- ✅ **Smart categorization** - Automatic category suggestions and custom categories
-- ✅ **Real-time updates** - Instant synchronization across all components
-- ✅ **Detailed descriptions** - Add notes and context to transactions
+<div align="center">
 
-### 📊 **Visual Analytics**
-- ✅ **Interactive charts** - Beautiful Chart.js visualizations
-- ✅ **Monthly breakdowns** - Current month vs historical data
-- ✅ **Category-wise analysis** - Pie charts and bar graphs
-- ✅ **Income vs Expense trends** - Multi-period comparison
-- ✅ **Real-time dashboard tiles** - Balance, savings, income, and expense summaries
+*Watch comprehensive video walkthroughs showcasing all features and functionality*
 
-### 🎯 **Goal Management**
-- ✅ **Budget goals** - Set monthly spending limits per category
-- ✅ **Savings goals** - Track progress toward financial objectives
-- ✅ **Progress tracking** - Visual progress bars with color-coded alerts
-<!-- Under Development
-- ✅ **Goal notifications** - Smart alerts when approaching limits
-- ✅ **CRUD operations** - Create, read, update, and delete goals
--->
+</div>
+<div align="center">
 
-### 🔐 **Security & Authentication**
-- ✅ **Firebase Authentication** - Secure email/password login with custom domain integration
-- ✅ **Custom Email Domain** - Professional verification emails via Zoho SMTP server
-- ✅ **Email verification** - Required email confirmation for new accounts
-- ✅ **Password reset** - Secure password recovery via custom domain email
-- ✅ **JWT token validation** - Server-side authentication verification
+[![Desktop Demo](https://img.shields.io/badge/▶️%20Watch%20Demo-FF4081?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/drive/folders/1Foqa8ZqMrsHjSOcuIJbvbj8mdWoAmwFm?usp=share_link)
 
-### 🎨 **User Experience**
-- ✅ **Fully responsive design** - Mobile-first approach with desktop optimization
-- ✅ **Dark theme UI** - Modern gradient-based design
+</div>
 
-### ⚙️ **Technical Features**
-- ✅ **RESTful API** - Well-structured backend with comprehensive endpoints
-- ✅ **Database persistence** - MySQL with optimized queries
-- ✅ **Containerized deployment** - Docker and Docker Compose support
-- ✅ **Reverse proxy** - Nginx for production deployment
-- ✅ **Comprehensive logging** - Detailed application and error logging
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -129,31 +102,6 @@ Managing personal finances can be overwhelming with various income sources, expe
 - **☁️ Azure Cloud** - Production VM deployment with monitoring & auto-scaling
 - **🔒 Security & SSL** - Cloudflare CDN with automated certificate management
 
-## � Deployment & CI/CD
-
-### 🔄 Automated Pipeline
-Our GitHub Actions workflow automatically:
-1. **Builds** optimized Docker images on every commit to main
-2. **Pushes** versioned images to Docker Hub registry  
-3. **Deploys** to Azure VM with zero-downtime rolling updates
-4. **Validates** deployment health and enables rollback if needed
-
-### ☁️ Azure Production Environment
-- **Azure VM**: Ubuntu 22.04 LTS (Standard B2s - 2 vCPUs, 4GB RAM)
-- **SSL/CDN**: Cloudflare integration with automated certificate management
-- **Monitoring**: Comprehensive logging and health checks across all services
-- **Security**: Firewall rules, DDoS protection, and environment-based secrets
-
-#### 🔐 Required GitHub Secrets
-For the CI/CD pipeline to work, configure these secrets in your GitHub repository:
-```bash
-DOCKER_USERNAME=your_dockerhub_username
-DOCKER_PASSWORD=your_dockerhub_password
-AZURE_HOST=your_azure_vm_ip
-AZURE_USERNAME=your_azure_vm_username  
-AZURE_SSH_KEY=your_private_ssh_key
-```
-
 #### 🚀 Deployment Process
 1. **Trigger**: Push to main branch initiates workflow
 2. **Build**: Multi-architecture Docker images with version tagging
@@ -168,15 +116,46 @@ GitHub → GitHub Actions → Docker Hub → Azure VM → Production
 Commit → Build Images → Push Images → Pull & Deploy → Live App
 ```
 
+## 📉 Problems I faced by building this app
+
+#### Verification email issues
+
+I integrated firebase auth for email verification and encountered issues with the email being sent but marked as spam. To resolve this, I configured my custom email subdomain and setup a SMTP server with the help of Zoho mail - and now those emails are not being marked as spam.
+
+## UI/UX issues
+
+I faced several UI/UX challenges while building the app, including:
+
+1. Too many components that didn't meet size and spacing requirements for desktop version, like in Show budget, set budget, show Saving goals, set saving goals. So I put a simple button in the Show budget/savings component only, to make user switch between see budget/savings and set them.
+
+2. Responsiveness of components: Ensuring all components looked good on different screen sizes required careful planning and testing. I used CSS Grid and Flexbox to create a fluid layout that adapts to various devices.
+
+#### Backend issues
+
+1. User authentication: Initially i was planning to implement JWT auth, but i switched to firebase auth as I had already integrated it for user registration and login.
+
+2. Some minor problems were there with efficiently fetching data from backend and how to efficiently pass it to frontend, but I solved them using some custom formatting functions and algorithms.
+
+#### Docker and DevOps issues
+
+1. Containerization: Initially, my plan was to host the frontend on some third party service like Cloudflare, but later I decided to containerize the entire application using Docker for better scalability, management and integrate CI/CD pipelines from frontend too.
+
+2. Firebase ServiceKeyJson file: It was the most challenging part, managing the Firebase Service Account Key JSON file securely, and to put it inside containers. I was thinking to put it inside container only, but later realized this will expose sensitive information. Then i try putting it directly inside the VM and using environment variables to access it, but again that's not ideal. Finally I decided to convert json code into base64, and then put the base64 encoded string into github secrets(as it allows only strings), and then decoding it again while accessing in backend. Thanks to @vvijay2468 who guided me on how to do this.
+
+3. CI/CD Pipeline: Setting up the GitHub Actions workflow for automated testing and deployment was complex. I had to ensure that all environment variables and secrets were correctly configured to avoid deployment failures.
+
+#### Nginx reverse proxy and SSL termination
+My initial Nginx config for reverse proxy was working absolutely fine, but to make it secure i had to put SSL certificates in place. I used Cloudflared to obtain free SSL certificates and configured Nginx to use them for secure HTTPS connections. I could use Let's encrypt also but I found Cloudflared easier to set up and manage, and i've been working with cloudflare for a while, all my services are behind Cloudflare and my domain is also managed by Cloudflare so it made sense to use their SSL as well.
+
 ### 🐳 Docker Deployment (Recommended)
 ```bash
 # Quick production deployment
 git clone https://github.com/KALI-THE-HACKER/xpensex.git
 cd xpensex
-cp .env.example .env  # Configure your environment
-docker-compose -f docker-compose.prod.yml up -d
+# Configure your environment - setup .env file
+docker-compose -f docker-compose.yml up -d
 
-# Application available at https://your-domain.com
+# Application available at http://localhost
 ```
 
 ### 🔧 Manual Development Setup
@@ -196,6 +175,7 @@ uvicorn app.xpensex:app --host 0.0.0.0 --port 8000
 cd frontend && npm install
 # Configure .env with API endpoint
 npm run dev
+# Application available at http://localhost:5173
 ```
 
 ## ⚙️ Configuration
@@ -211,17 +191,8 @@ DB_NAME=xpensex
 FIREBASE_KEY_BASE64=<base64-encoded-firebase-credentials>
 
 # Frontend (.env)
-VITE_API_URL=/api
+VITE_API_URL=http://localhost:8000 #backend url
 ```
-
-## 🚀 Architecture & DevOps
-
-### 🔧 Production Stack
-- **Frontend**: React 19 + Vite 7 + TailwindCSS 4
-- **Backend**: FastAPI + MySQL 8.0 + Firebase Auth (Custom Domain)
-- **Email Service**: Zoho SMTP integration for professional verification emails
-- **Infrastructure**: Docker + Nginx + Azure + Cloudflare
-- **CI/CD**: GitHub Actions + Docker Hub + Automated deployment
 
 ## 🤝 Contributing
 
@@ -252,6 +223,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **TailwindCSS** for the amazing utility-first CSS framework
 - **FastAPI** for the incredible Python web framework
 - **React team** for the robust frontend library
+- **Zoho mail** for free smtp server for my custom mail domain
+- **Cloudflare** for securing my domain, providing SSL certificates, and DDoS protection.
 
 ---
 
