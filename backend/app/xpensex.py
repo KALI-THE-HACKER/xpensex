@@ -18,6 +18,7 @@ import logging
 from pathlib import Path
 from dotenv import load_dotenv
 import json
+from backend.app import recurring_transactions
 
 load_dotenv()
 
@@ -51,6 +52,9 @@ firebase_admin.initialize_app(cred)
 
 app = FastAPI()
 security = HTTPBearer()
+
+# Add recurring transaction endpoints
+recurring_transactions.add_recurring_endpoints(app, security, get_db, verify_token)
 
 
 
