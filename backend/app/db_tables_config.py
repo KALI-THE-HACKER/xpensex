@@ -56,6 +56,24 @@ def create_tables():
     )
     """)
 
+    # Create recurring_transactions table
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS recurring_transactions (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        uid VARCHAR(1024) NOT NULL,
+        amount INT NOT NULL,
+        type VARCHAR(50) NOT NULL,
+        category VARCHAR(50) NOT NULL,
+        frequency VARCHAR(20) NOT NULL,
+        start_date DATE NOT NULL,
+        end_date DATE,
+        description VARCHAR(200),
+        is_active BOOLEAN DEFAULT TRUE,
+        next_due_date DATE NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
     conn.commit()
     cursor.close()
     conn.close()
